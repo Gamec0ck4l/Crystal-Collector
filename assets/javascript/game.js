@@ -1,108 +1,79 @@
-var targetNumber = [19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
-                   	41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,
-                    63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,
-                    85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,
-                                 105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120]
-var crystalNumber = [1,2,3,4,5,6,7,8,9,10,11,12]
 var wins = 0;
 var losses = 0;
 var counter = 0;
- 
-var randomTarget = targetNumber[Math.floor(Math.random() * targetNumber.length)];
+
+// Selects random number between 19-120 for the target number
+var randomTarget = Math.floor(Math.random() * 101 + 19);
 $("#random-number").text(randomTarget);
- 
-var randomCrystalRed = crystalNumber[Math.floor(Math.random() * crystalNumber.length)];
-var randomCrystalBlue = crystalNumber[Math.floor(Math.random() * crystalNumber.length)];
-var randomCrystalYellow = crystalNumber[Math.floor(Math.random() * crystalNumber.length)];
-var randomCrystalGreen = crystalNumber[Math.floor(Math.random() * crystalNumber.length)];
- 
-// Reset functions
-var reset = function() {     
-    counter = 0;
-   $("#total-score").text(counter);
 
-    randomTarget = targetNumber[Math.floor(Math.random() * targetNumber.length)];
-    $("#random-number").text(randomTarget);     
+// Selects random nummber between 1-12 for each crystal
+var randomCrystalRed = Math.floor(Math.random() * 11 + 1);
+var randomCrystalBlue = Math.floor(Math.random() * 11 + 1);
+var randomCrystalYellow = Math.floor(Math.random() * 11 + 1);
+var randomCrystalGreen = Math.floor(Math.random() * 11 + 1);
+$("#total-score").text(counter);
 
-    randomCrystalRed = crystalNumber[Math.floor(Math.random() * crystalNumber.length)];
-    randomCrystalBlue = crystalNumber[Math.floor(Math.random() * crystalNumber.length)];
-    randomCrystalYellow = crystalNumber[Math.floor(Math.random() * crystalNumber.length)];
-    randomCrystalGreen = crystalNumber[Math.floor(Math.random() * crystalNumber.length)];
+/* Reset functions: 
+   Counter is set back to 0,
+   Selects random number between 19-120 for the target number,
+   Selects random nummber between 1-12 for each crystal, */
+var reset = function() {      
+ 	counter = 0;
+ 	$("#total-score").text(counter);
+
+	randomTarget = Math.floor(Math.random() * 101 + 19);
+	$("#random-number").text(randomTarget);	
+
+	randomCrystalRed = Math.floor(Math.random() * 11 + 1);
+	randomCrystalBlue = Math.floor(Math.random() * 11 + 1);
+	randomCrystalYellow = Math.floor(Math.random() * 11 + 1);
+	randomCrystalGreen = Math.floor(Math.random() * 11 + 1);
 }
- 
+
+// Display functions:  Displays the wins, losses, and total score
+var display = function() {
+	$("#number-of-wins").text(wins); 
+	$("#number-of-losses").text(losses); 
+	$("#total-score").text(counter);
+}
+
+// Condition functions:  
+var conditions = function() {
+	if (counter === randomTarget) {
+		wins++;
+		alert("You win!");
+		reset();
+	}
+
+	else if (counter > randomTarget) {			
+		losses++;			
+		alert("You lose, Try again!")
+		reset();			
+	}
+}
+
+// Click functions for each crystal
 $("#red").on("click", function() {
-    counter += randomCrystalRed;
-    $("#number-of-wins").text(wins);
-    $("#number-of-losses").text(losses);
-    $("#total-score").text(counter);
+	counter += randomCrystalRed;
+	display();
+	conditions();
+ });
 
-    if (counter === randomTarget) {
-	    wins++;
-	    alert("You win!");
-	    reset();
-	    }
-
-    else if (counter > randomTarget) {                                          
-        losses++;                                            
-        alert("you lose")
-        reset();                                
-        }
-});
- 
 $("#blue").on("click", function() {
-    counter += randomCrystalBlue;
-    $("#number-of-wins").text(wins);
-    $("#number-of-losses").text(losses);
-    $("#total-score").text(counter);
+	counter += randomCrystalBlue;
+	display();
+	conditions();
+ });
 
-    if (counter === randomTarget) {
-	    wins++;
-	    alert("You win!");
-	    reset();
-	    }
-
-    else if (counter >= randomTarget) {                                        
-        losses++;                                            
-        alert("you lose")
-        reset();                                
-        }
-});
- 
 $("#yellow").on("click", function() {
-    counter += randomCrystalYellow;
-    $("#number-of-wins").text(wins);
-    $("#number-of-losses").text(losses);
-    $("#total-score").text(counter);
+	counter += randomCrystalYellow;
+	display();
+	conditions();
+ });
 
-    if (counter === randomTarget) {
-	    wins++;
-	    alert("You win!");
-	    reset();
-	    }
-
-    else if (counter >= randomTarget) {                                        
-        losses++;                                            
-        alert("you lose")
-        reset();                                
-        }
-});
- 
 $("#green").on("click", function() {
-    counter += randomCrystalGreen;
-    $("#number-of-wins").text(wins);
-    $("#number-of-losses").text(losses);
-    $("#total-score").text(counter);
-
-    if (counter === randomTarget) {
-	    wins++;
-	    alert("You win!");
-	    reset();
-	    }
-
-    else if (counter >= randomTarget) {                                        
-        losses++;                                            
-        alert("you lose")
-        reset();                                
-        }
-});
+	counter += randomCrystalGreen;
+	display();
+	conditions();
+ });
 
